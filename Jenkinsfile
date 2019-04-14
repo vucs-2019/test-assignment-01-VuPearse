@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                nodejs() {
+                nodejs(nodeJSInstallationName: 'Most Recent Node') {
                     sh 'npm install'
                 }
             }
         }
         stage('Test') {
             steps {
-                nodejs() {
+                nodejs(nodeJSInstallationName: 'Most Recent Node') {
                     sh 'npm run test'
                 }
             }
