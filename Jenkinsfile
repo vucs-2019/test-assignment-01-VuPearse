@@ -19,8 +19,9 @@ pipeline {
         stage('Build') {
             steps {
                 nodejs(nodeJSInstallationName: 'Most Recent Node') {
-                    sh 'cd test-assignment-01-tests'
-                    sh 'npm install'
+                    dir("test-assignment-01-tests") {
+                        sh 'npm install'
+                    }
                 }
             }
         }
@@ -28,7 +29,9 @@ pipeline {
             steps {
                 nodejs(nodeJSInstallationName: 'Most Recent Node') {
                     script {
-                        env.TEST_RESULTS = sh 'npm run test'             
+                        dir("test-assignment-01-tests") {
+                            env.TEST_RESULTS = sh 'npm run test'
+                        }             
                     }
                 }
             }
@@ -37,7 +40,7 @@ pipeline {
     post {
         always {
             sh 'ls -la'
-            junit 'jenkins-test-results.xml'
+            junit 'test-assignment-01-tests/jenkins-test-results.xml'
             step([$class: 'GitHubIssueNotifier',
                 issueAppend: true,
                 issueLabel: '',
