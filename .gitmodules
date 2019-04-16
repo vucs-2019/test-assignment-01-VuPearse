@@ -1,0 +1,4 @@
+[submodule "test-assignment-01-tests"]
+	path = test-assignment-01-tests
+	url = https://github.com/vucs-2019/test-assignment-01-tests.git
+	branch = master
