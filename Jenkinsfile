@@ -39,13 +39,15 @@ pipeline {
     }  
     post {
         always {
-            sh 'ls -la'
-            junit 'test-assignment-01-tests/jenkins-test-results.xml'
-            step([$class: 'GitHubIssueNotifier',
-                issueAppend: true,
-                issueLabel: '',
-                issueTitle: "$JOB_NAME $BUILD_DISPLAY_NAME failed",
-                issueBody: env.TEST_RESULTS])
+            dir("test-assignment-01-tests") {
+                sh 'ls -la'
+                junit 'test-assignment-01-tests/jenkins-test-results.xml'
+                step([$class: 'GitHubIssueNotifier',
+                    issueAppend: true,
+                    issueLabel: '',
+                    issueTitle: "$JOB_NAME $BUILD_DISPLAY_NAME failed",
+                    issueBody: env.TEST_RESULTS])
+            }      
         }
     }
 }
